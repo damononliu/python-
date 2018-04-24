@@ -33,6 +33,8 @@ address = []
 # date1 = []
 for row1 in reader1:
     _address = 88 * (math.pow(float(row1[1])/10000, 2))
+    # 将地址的平方改为地址的根号次方，表现出了更强的相关性
+    # _address = 88 * (math.pow(float(row1[1])/10000, 2 ** 0.5))
     # _date1 = datetime.strptime(row1[0], "%Y/%m/%d")
     address.append(_address)
     # date1.append(_date1)
