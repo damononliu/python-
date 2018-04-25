@@ -13,11 +13,16 @@ header_row = next(reader)
 
 cap = []
 date = []
+date2 = []
 for row in reader:
+    # 总市值单位是十亿
     cap1 = float(row[1]) / 1000000000
     _date = datetime.strptime(row[0], "%Y-%m-%d")
+    _date2 = row[0]
     cap.append(cap1)
     date.append(_date)
+    date2.append(_date2)
+
 
 cap.reverse()
 # print(cap)
@@ -55,7 +60,7 @@ for i in range(59,len(address)):
         
         address[i] = (sum(address1[i-59:i+1])) / 60
 
-        address[i] = math.pow(address[i], 2 ** 0.5)
+        address[i] = address[i] ** (2 ** 0.5)
 # print(address)
 index = []
 for i in range(0,len(cap)):
@@ -65,12 +70,23 @@ for i in range(0,len(cap)):
         index.append(100 * cap[i] / address[i])
 # print(len(index))
 # print(len(cap))
-print(cap)
-print(address)
-print(index)
-file = open('data.txt', 'w')
-file.write(str(cap))
-file.close()
+# print(cap)
+# print(address)
+# print(index)
+# 将数据写入data.txt文件
+# file = open('data.txt', 'w')
+# file.write(str(cap))
+# file.close()
+
+fileHeader = ["date", "value"]
+
+csvFile = open("newAddress.csv", "w")
+writer = csv.writer(csvFile)
+writer.writerow(fileHeader)
+for i in range(0, len(address)):
+    middle = [date2[i], address[i]]
+    writer.writerow(middle)
+
 
 fig = plt.figure(dpi=128, figsize=(5, 3))
 # 总市值（蓝色）
